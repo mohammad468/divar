@@ -1,20 +1,28 @@
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const path = require("path");
 
-const swaggerConfig = (app) => {
+const SwaggerConfig = (app) => {
   const swaggerDocument = swaggerJsDoc({
     swaggerDefinition: {
+      openapi: "3.0.1",
       info: {
-        title: "diver-backend",
-        description: "divar api with express.js",
+        title: "Divar Backend",
+        description: "Divar API with Express.js",
         version: "1.0.0",
       },
+      servers: [
+        {
+          url: "http://localhost:3000",
+          description: "Local Development Server",
+        },
+      ],
     },
-    apis: [],
+    apis: [process.cwd() + "/src/modules/**/*.swagger.js"],
   });
 
-  const swagger = swaggerUi.setup(swaggerDocument);
-  app.use("/", swaggerUi.serve, swagger);
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  console.log("Swagger is running at: http://localhost:3000/api-docs");
 };
 
-module.exports = { swaggerConfig };
+module.exports = SwaggerConfig;
