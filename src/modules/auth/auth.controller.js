@@ -1,6 +1,8 @@
 const autoBind = require("auto-bind");
 const authService = require("./auth.service");
 const { AuthMessage } = require("./auth.messages");
+const { nodeEnd } = require("../../common/constant/env.enum");
+const { CookieNames } = require("../../common/constant/cookie.enum");
 
 class AuthController {
   #service;
@@ -23,9 +25,23 @@ class AuthController {
   async checkOTP(req, res, next) {
     try {
       const { mobile, code } = req.body;
-      await this.#service.checkOTP(mobile, code);
-      return res.json({
-        message: AuthMessage.LoginSuccessfully,
+      const message = AuthMessage.LoginSuccessfully;
+      const accessToken = await this.#service.checkOTP(mobile, code);
+      return res
+        .cookie(CookieNames.accessToken, accessToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === nodeEnd.Development ? false : true,
+        })
+        .status(200)
+        .json({ message, accessToken });
+    } catch (error) {
+      next(error);
+    }
+  }
+  async logout(req, res, next) {
+    try {
+      return res.clearCookie(CookieNames.accessToken).status(200).json({
+        message: AuthMessage.LogoutSuccessfully,
       });
     } catch (error) {
       next(error);
