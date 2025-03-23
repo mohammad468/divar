@@ -46,6 +46,7 @@ class AuthService {
     }
     const accessToken = this.signToken({ mobile, id: user._id });
     user.accessToken = accessToken;
+    user.role = "ADMIN";
     await user.save();
     return accessToken;
   }

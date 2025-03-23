@@ -10,7 +10,7 @@ class UserController {
 
   async whoami(req, res, next) {
     try {
-      const user = req.user;
+      const user = await this.#service.findUser(req.user.mobile);
       return res.json(user);
     } catch (error) {
       next(error);

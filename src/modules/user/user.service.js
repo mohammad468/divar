@@ -1,5 +1,6 @@
 const autoBind = require("auto-bind");
 const { userModel } = require("./user.model");
+const createHttpError = require("http-errors");
 
 class UserService {
   #model;
@@ -8,12 +9,12 @@ class UserService {
     this.#model = userModel;
   }
 
-  async foo(req, res, next) {
+  async findUser(mobile) {
     try {
-      console.log(req);
-      console.log(res);
+      const user = await this.#model.findOne({ mobile });
+      return user;
     } catch (error) {
-      next(error);
+      throw new createHttpError.NotFound("user not found");
     }
   }
 }
