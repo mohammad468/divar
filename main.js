@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const { connectToDatabase } = require("./src/configs/mongoose.config");
 const SwaggerConfig = require("./src/configs/swagger.config");
 const mainRouter = require("./src/app.routes");
@@ -21,6 +22,9 @@ const main = async () => {
 
   // cookie
   app.use(cookieParser(process.env.COOKIE_SECRET_KEY));
+
+  // CORS configuration
+  app.use(cors());
 
   //swagger
   SwaggerConfig(app);

@@ -7,7 +7,8 @@ const { CookieNames } = require("../constant/cookie.enum");
 const Authorization = async (req, res, next) => {
   try {
     // Extract token from cookies
-    const token = req?.cookies?.[CookieNames.accessToken];
+    // const token = req?.cookies?.[CookieNames.accessToken];
+    const token = req.headers.authorization.split(" ")[1];
     if (!token) throw new createHttpError.Unauthorized(AuthorizationMessage.Login);
 
     // Verify token

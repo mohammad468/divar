@@ -11,6 +11,7 @@ const OTPSchema = new Schema(OTPSchemaConfig);
 // User Schema
 const userSchemaConfig = {
   fullName: { type: String, required: false },
+  role: { type: String, required: false },
   mobile: { type: String, required: true, unique: true },
   otp: { type: OTPSchema },
   verifiedMobile: { type: Boolean, required: true, default: false },
