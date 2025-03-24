@@ -1,6 +1,8 @@
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const path = require("path");
+const port = process.env.PORT;
+
 
 const SwaggerConfig = (app) => {
   const swaggerDocument = swaggerJsDoc({
@@ -13,7 +15,7 @@ const SwaggerConfig = (app) => {
       },
       servers: [
         {
-          url: "http://localhost:3000",
+          url: "http://localhost:3313",
           description: "Local Development Server",
         },
       ],
@@ -22,7 +24,7 @@ const SwaggerConfig = (app) => {
   });
 
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-  console.log("Swagger is running at: http://localhost:3000/api-docs");
+  console.log(`Swagger is running at: http://localhost:${port}/api-docs`);
 };
 
 module.exports = SwaggerConfig;
