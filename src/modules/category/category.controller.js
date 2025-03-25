@@ -44,10 +44,23 @@ class categoryController {
 
   async findById(req, res, next) {
     const categoryId = req.params.id;
-    if(!categoryId) return res.status(400).json(createHttpError.BadRequest("test"));
+    if (!categoryId) return res.status(400).json(createHttpError.BadRequest("test"));
     const category = await this.#service.findOneById(categoryId);
-    if(!category) return res.status(createHttpError.NotFound(categoryMessage.notFound));
+    if (!category) return res.status(createHttpError.NotFound(categoryMessage.notFound));
     return res.status(httpCodes.OK).json(category);
+  }
+
+  async delete(req, res, next) {
+    try {
+      const categoryId = req.params.id;
+      if (!categoryId) return res.status(400).json(createHttpError.BadRequest("test"));
+      await this.#service.deleteCategory(categoryId);
+      res.status(httpCodes.OK).json({
+        message: "deleted data successfully",
+      });
+    } catch (error) {
+      next();
+    }
   }
 }
 

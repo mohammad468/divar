@@ -67,6 +67,10 @@ class categoryService {
     if (category) throw new createHttpError.Conflict(categoryMessage.alreadyExist);
     return null;
   }
+
+  async deleteCategory(id) {
+    await this.#model.deleteOne({_id: id});
+  }
 }
 
 module.exports = new categoryService();
