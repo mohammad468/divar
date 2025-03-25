@@ -40,6 +40,10 @@ class categoryService {
     return await this.#model.find({ parent: { $exists: false } }).populate([{ path: "children" }]);
   }
 
+  async getAll() {
+    return await this.#model.find();
+  }
+
   async checkExistById(id) {
     const category = await this.#model.findById(id);
     if (!category) throw new createHttpError.NotFound(categoryMessage.notFound);
