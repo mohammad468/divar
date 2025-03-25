@@ -45,7 +45,7 @@ class categoryController {
   async findById(req, res, next) {
     const categoryId = req.params.id;
     if(!categoryId) return res.status(400).json(createHttpError.BadRequest("test"));
-    const category = await this.#service.checkExistById(categoryId);
+    const category = await this.#service.findOneById(categoryId);
     if(!category) return res.status(createHttpError.NotFound(categoryMessage.notFound));
     return res.status(httpCodes.OK).json(category);
   }
