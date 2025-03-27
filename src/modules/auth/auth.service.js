@@ -11,7 +11,7 @@ class AuthService {
     autoBind(this);
     this.#model = userModel;
   }
-  async sendOTP(mobile) {
+  async sendOTP(mobile, fullName) {
     const user = await this.#model.findOne({ mobile });
     const now = new Date().getTime();
     const code = randomInt(10000, 99999);
@@ -19,7 +19,7 @@ class AuthService {
     const otp = { code, expiresIn };
     console.log({ mobile, otp });
     if (!user) {
-      const newUser = await this.#model.create({ mobile, otp });
+      const newUser = await this.#model.create({ mobile, otp, fullName });
       return newUser;
     }
 
