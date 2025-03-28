@@ -5,6 +5,7 @@ const router = Router();
 
 router.get("/", Authorization, userController.users);
 router.post("/", Authorization, userController.create);
+router.delete("/:id", userController.delete);
 router.get("/whoami", Authorization, userController.whoami);
 
 module.exports = { UserRouter: router };

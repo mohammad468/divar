@@ -53,7 +53,7 @@ class categoryController {
   async delete(req, res, next) {
     try {
       const categoryId = req.params.id;
-      if (!categoryId) return res.status(400).json(createHttpError.BadRequest("test"));
+      if (!categoryId) return res.status(404).json(createHttpError.BadRequest("category not found"));
       await this.#service.deleteCategory(categoryId);
       res.status(httpCodes.OK).json({
         message: "deleted data successfully",

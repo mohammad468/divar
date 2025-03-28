@@ -1,6 +1,8 @@
 const autoBind = require("auto-bind");
 const userService = require("./user.service");
 const createHttpError = require("http-errors");
+const httpCodes = require("http-codes");
+const { UserMessage } = require("./user.messages");
 
 class UserController {
   #service;
@@ -31,6 +33,14 @@ class UserController {
     const { mobile, fullName } = req.body;
     const user = await this.#service.createUser({ mobile, fullName });
     res.status(201).json(user);
+  }
+
+  async delete(req, res, next) {
+    const userId = req.params.id;
+    await this.#service.deleteUser(userId);
+    res.status(httpCodes.NO_CONTENT).json({
+      message: UserMessage.deleteSuccess,
+    });
   }
 }
 
