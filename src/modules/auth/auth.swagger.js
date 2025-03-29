@@ -16,6 +16,8 @@
  *       properties:
  *         mobile:
  *           type: string
+ *         fullName:
+ *           type: string
  *     CheckOTP:
  *       type: object
  *       required:

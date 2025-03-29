@@ -1,8 +1,9 @@
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const dotenv = require("dotenv");
+dotenv.config();
 const path = require("path");
 const port = process.env.PORT;
-
 
 const SwaggerConfig = (app) => {
   const swaggerDocument = swaggerJsDoc({
@@ -15,7 +16,7 @@ const SwaggerConfig = (app) => {
       },
       servers: [
         {
-          url: "http://localhost:3313",
+          url: `http://localhost:${port}`,
           description: "Local Development Server",
         },
       ],
