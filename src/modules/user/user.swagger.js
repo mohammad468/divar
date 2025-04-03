@@ -72,6 +72,14 @@
  *         schema:
  *           type: string
  *         description: Bearer token (e.g., "Bearer your_token_here")
+ *     requestBody:
+ *       content:
+ *         application/x-www-form-urlencoded:
+ *           schema:
+ *             $ref: "#/components/schemas/CreateUser"
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/CreateUser"
  *     responses:
  *       200:
  *         description: Success
