@@ -22,6 +22,11 @@ class UserService {
   async createUser({ mobile, fullName }) {
     try {
       const user = await this.#model.findOne({ mobile });
+      if (!user) {
+        const newUser = await this.#model.create({ mobile, fullName });
+        if (!newUser) throw new createHttpError[500]("can not create new user");
+        return newUser;
+      }
       user.fullName = fullName;
       await user.save();
       return user;
