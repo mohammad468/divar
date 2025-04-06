@@ -41,7 +41,7 @@
 
 /**
  * @swagger
- * /user/:
+ * /user:
  *   get:
  *     summary: Get All Users
  *     tags:
@@ -60,7 +60,7 @@
 
 /**
  * @swagger
- * /user/:
+ * /user:
  *   post:
  *     summary: Create user
  *     tags:
