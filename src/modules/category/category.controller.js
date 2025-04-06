@@ -15,7 +15,8 @@ class categoryController {
   async create(req, res, next) {
     try {
       const { name, icon, slug, parent } = req.body;
-      await this.#service.create({ name, icon, slug, parent });
+      if(!!parent) await this.#service.create({ name, icon, slug, parent });
+      await this.#service.create({ name, icon, slug });
       return res.status(httpCodes.CREATED).json({
         message: categoryMessage.created,
       });
